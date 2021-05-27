@@ -19,8 +19,7 @@ File Structure is as follows:
     val_lbl.txt
     
 Training
--------       
-python main_ss.py     
+-------         
 To pretrain the model and finetune with our GLCNet, try the following command:      
         
     python main_ss.py  root=./data_example/Potsdam
