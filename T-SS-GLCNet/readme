@@ -1,0 +1,8 @@
+training
+  python main_ss.py
+  --ex_mode: 0-just do self-supervised learning(ssl)
+             1-ssl and fine-tune
+             2-fine-tune
+             3-just fine-tune val
+  --self_mode: 1-'GLCNet', 2-'SimCLR', 3-'mocov2', 4-'inpaiting',
+               5-'jigsaw',11-'GLCNet_noStyle',12-'GLCNet_noGlobal',13-'GLCNet_noLocal'
