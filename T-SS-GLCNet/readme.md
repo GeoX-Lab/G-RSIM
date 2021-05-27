@@ -8,15 +8,25 @@ Dataset Directory Structure
 -------
 File Structure is as follows:   
 
-  $train_RGBIR/*.tif     
-  $train_lbl/*.tif     
-  $val_RGBIR/*.tif      
-  $val_lbl/*.tif    
-  train_RGBIR.txt    
-  trainR1_RGBIR.txt     
-  trainR1_lbl.txt       
-  valR1500_RGBIR.txt       
-  valR1500_lbl.txt
-                
+    $train_RGBIR/*.tif     
+    $train_lbl/*.tif     
+    $val_RGBIR/*.tif      
+    $val_lbl/*.tif    
+    train_RGBIR.txt    
+    trainR1_RGBIR.txt     
+    trainR1_lbl.txt       
+    val_RGBIR.txt       
+    val_lbl.txt
+    
+Training
+-------       
+python main_ss.py     
+To pretrain the model and finetune with our GLCNet, try the following command:      
+        
+    python main_ss.py  root=./data_example/Potsdam
+    --ex_mode=1  --self_mode=1 \  
+    --self_max_epoch=400  --ft_max_epoch=150 \
+    
+
        
 
