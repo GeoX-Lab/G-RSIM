@@ -6,8 +6,8 @@ You can visit the paper via
 
 Dataset Directory Structure
 -------
-File Structure is as follows:
-    $train_RGBIR/*.tif
+File Structure is as follows:   
+        $train_RGBIR/*.tif     
         $train_lbl/*.tif
         $val_RGBIR/*.tif
         $val_lbl/*.tif
@@ -16,3 +16,4 @@ File Structure is as follows:
         trainR1_lbl.txt
         valR1500_RGBIR.txt
         valR1500_lbl.txt
+
