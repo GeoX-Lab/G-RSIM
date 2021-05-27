@@ -20,7 +20,7 @@ File Structure is as follows:
     
 Training
 -------         
-To pretrain the model and finetune with our GLCNet, try the following command:      
+To pretrain the model with our GLCNet and finetune , try the following command:      
         
     python main_ss.py  root=./data_example/Potsdam
     --ex_mode=1  --self_mode=1 \  
