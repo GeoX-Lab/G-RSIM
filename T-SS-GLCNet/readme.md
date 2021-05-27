@@ -26,6 +26,7 @@ To pretrain the model and finetune with our GLCNet, try the following command:
     python main_ss.py  root=./data_example/Potsdam
     --ex_mode=1  --self_mode=1 \  
     --self_max_epoch=400  --ft_max_epoch=150 \
+    --self_data_name=train  --ft_train_name=trainR1
     
 
        
