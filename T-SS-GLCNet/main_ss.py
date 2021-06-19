@@ -166,10 +166,10 @@ def main_worker(gpu, args):
     model=build_model(args)
     if args.self_mode==1 or args.self_mode==11 or args.self_mode==12 or args.self_mode==13:
         train_epoch = utils_SS_pretexts.GLCNet_train
-        criterion = [contrast_loss.NTXentLoss(args.self_batch_size, args.gpu, 0.5).cuda(args.gpu),contrast_loss.NTXentLoss(args.self_batch_size*args.patch_num, args.gpu, 0.5).cuda(args.gpu)]
+        criterion = [contrast_loss.NTXentLoss(args.self_batch_size, args.gpu, 0.5, cos_sim=True).cuda(args.gpu),contrast_loss.NTXentLoss(args.self_batch_size*args.patch_num, args.gpu, 0.5, cos_sim=True).cuda(args.gpu)]
     elif args.self_mode==2:
         train_epoch = utils_SS_pretexts.SimCLR_train
-        criterion = contrast_loss.NTXentLoss(args.self_batch_size,args.gpu, 0.5).cuda(args.gpu)
+        criterion = contrast_loss.NTXentLoss(args.self_batch_size,args.gpu, 0.5, cos_sim=True).cuda(args.gpu)
     elif args.self_mode == 3:
         train_epoch = utils_SS_pretexts.MoCov2_train
         criterion = torch.nn.CrossEntropyLoss(ignore_index=-1).cuda(args.gpu)
