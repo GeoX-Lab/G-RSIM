@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import torch
-# import numpy as np
+import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 # import torch.autograd as autograd
@@ -20,8 +20,8 @@ def get_pos_and_neg_mask(bs):
     pos_mask = torch.cat([
         torch.cat([zeros, eye], dim=0), torch.cat([eye, zeros], dim=0),
     ], dim=1)
-    neg_mask = (torch.ones(2*bs, 2*bs, dtype=torch.uint8) - torch.eye(
-        2*bs, dtype=torch.uint8))
+    neg_mask = _get_correlated_mask(bs)
+    #(torch.ones(2*bs, 2*bs, dtype=torch.uint8) - torch.eye(2*bs, dtype=torch.uint8))
     pos_mask = mask_type_transfer(pos_mask)
     neg_mask = mask_type_transfer(neg_mask)
     return pos_mask, neg_mask
@@ -95,6 +95,13 @@ class NTXentLoss(nn.Module):
 
         return loss
 
+def _get_correlated_mask(batch_size):
+    diag = np.eye(2 * batch_size)
+    l1 = np.eye((2 * batch_size), 2 * batch_size, k=-batch_size)
+    l2 = np.eye((2 * batch_size), 2 * batch_size, k=batch_size)
+    mask = torch.from_numpy((diag + l1 + l2))
+    mask = (1 - mask)#.byte()#.type(torch)
+    return mask#.to(self.device)
 
 def get_contrast_loss(name, **kwargs):
     if name == 'NTXentLoss':
