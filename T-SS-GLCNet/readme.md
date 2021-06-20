@@ -1,10 +1,11 @@
-Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method
+# Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method
+## Abstract
 ====
 Recently, supervised deep learning has achieved great success in remote sensing images (RSIs) semantic segmentation. However, supervised learning for semantic segmentation requires a large number of labeled samples which is difficult to obtain in the field of remote sensing. A new learning paradigm, self-supervised learning (SSL), can be used to solve such problems by pre-training a general model with large unlabeled images and then fine-tuning on a downstream task with very few labeled samples. Contrastive learning is a typical method of SSL, which can learn general invariant features. However, most of the existing contrastive learning is designed for classification tasks to obtain image-level representation, which may be sub-optimal for semantic segmentation tasks requiring pixel-level discrimination. Therefore, we propose Global style and Local matching Contrastive Learning Network (GLCNet) for remote sensing semantic segmentation. Specifically, 1) The global style contrastive module is used to learn image-level representation better, as we consider the style features can better represent the overall image features. 2) local features matching contrastive module is designed to learn representation of local regions which is beneficial for semantic segmentation. We evaluate on four remote sensing semantic segmentation datasets, and the experimental results show that our method mostly outperforms state-of-the-art self-supervised methods and ImageNet pre-training. Specifically, with 1% annotation from the original dataset, our approach improves Kappa by 6% on the ISPRS Potsdam dataset and 3% on Deep Globe Land Cover Classification dataset relative to the existing baseline. Moreover, our method outperforms supervised learning when there are some differences between the data sets of upstream tasks and downstream tasks. Our study promotes the development of self-supervised learning in the field of remote sensing semantic segmentation. Since SSL could directly learn the essential characteristics of data from unlabeled data which is easy to obtain in remote sensing filed, this may be of great significance for tasks such as global mapping
 
 You can visit the paper via 
 
-Dataset Directory Structure
+## Dataset Directory Structure
 -------
 File Structure is as follows:   
 
@@ -18,7 +19,7 @@ File Structure is as follows:
     val_RGBIR.txt       
     val_lbl.txt
     
-Training
+## Training
 -------         
 To pretrain the model with our GLCNet and finetune , try the following command:      
         
@@ -27,6 +28,33 @@ To pretrain the model with our GLCNet and finetune , try the following command:
     --self_max_epoch=400  --ft_max_epoch=150 \
     --self_data_name=train  --ft_train_name=trainR1
     
+## Citation
+'''
+Bibtex
+@article{peng2021ANPyc,
+    title={Overcoming Long-term Catastrophic Forgetting through Adversarial Neural Pruning and Synaptic Consolidation},
+    author={Peng, Jian and Tang, Bo and Jiang, Hao and Li, Zhuo and Lei, Yinjie and Lin, Tao and Li, Haifeng},
+    journal={IEEE Transactions on Neural Networks and Learning Systems},
+    DOI = {10.1109/TNNLS.2021.3056201},
+    year={2021},
+    type = {Journal Article}
+}
 
+Endnote
+%0 Journal Article
+%A Peng, Jian
+%A Tang, Bo
+%A Jiang, Hao
+%A Li, Zhuo
+%A Lei, Yinjie
+%A Lin, Tao
+%A Li, Haifeng
+%D 2021
+%T Overcoming Long-term Catastrophic Forgetting through Adversarial Neural Pruning and Synaptic Consolidation
+%B IEEE Transactions on Neural Networks and Learning Systems
+%R 10.1109/TNNLS.2021.3056201
+%! Overcoming Long-term Catastrophic Forgetting through Adversarial Neural Pruning and Synaptic Consolidation
+
+'''
        
 
