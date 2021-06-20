@@ -28,33 +28,42 @@ To pretrain the model with our GLCNet and finetune , try the following command:
     --self_max_epoch=400  --ft_max_epoch=150 \
     --self_data_name=train  --ft_train_name=trainR1
     
+    
+        Haifeng~Li, 
+    Yi Li, 
+    Guo Zhang, 
+    Ruoyun Liu, 
+    Haozhe Huang, 
+    Qing Zhu, 
+    Chao Tao
+    
 ## Citation
-'''
+···
 Bibtex
-@article{peng2021ANPyc,
-    title={Overcoming Long-term Catastrophic Forgetting through Adversarial Neural Pruning and Synaptic Consolidation},
-    author={Peng, Jian and Tang, Bo and Jiang, Hao and Li, Zhuo and Lei, Yinjie and Lin, Tao and Li, Haifeng},
-    journal={IEEE Transactions on Neural Networks and Learning Systems},
-    DOI = {10.1109/TNNLS.2021.3056201},
+@article{Li2021GLCNet,
+    title={Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method},
+    author={Li, Haifeng and Yi, Li and Zhang, Guo and Liu, Ruoyun and Huang, Haozhe and Zhu, Qing and Tao, Chao},
+    journal={arxiv.org},
+    DOI = {arxiv.org},
     year={2021},
     type = {Journal Article}
 }
 
 Endnote
 %0 Journal Article
-%A Peng, Jian
-%A Tang, Bo
-%A Jiang, Hao
-%A Li, Zhuo
-%A Lei, Yinjie
-%A Lin, Tao
 %A Li, Haifeng
+%A Yi, Li
+%A Zhang, Guo
+%A Liu, Ruoyun
+%A Huang, Haozhe
+%A Zhu, Qing
+%A Tao, Chao
 %D 2021
-%T Overcoming Long-term Catastrophic Forgetting through Adversarial Neural Pruning and Synaptic Consolidation
-%B IEEE Transactions on Neural Networks and Learning Systems
-%R 10.1109/TNNLS.2021.3056201
-%! Overcoming Long-term Catastrophic Forgetting through Adversarial Neural Pruning and Synaptic Consolidation
+%T Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method
+%B arxiv.org
+%R arxiv.org
+%! Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method
 
-'''
+···
        
 
