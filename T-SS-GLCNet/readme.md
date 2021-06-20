@@ -38,7 +38,9 @@ To pretrain the model with our GLCNet and finetune , try the following command:
     Chao Tao
     
 ## Citation
-···
+If our repo is useful to you, please cite our published paper as follow:
+
+```
 Bibtex
 @article{Li2021GLCNet,
     title={Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method},
@@ -64,6 +66,6 @@ Endnote
 %R arxiv.org
 %! Remote Sensing Images Semantic Segmentation with General Remote Sensing Vision Model via a Self-Supervised Contrastive Learning Method
 
-···
+```
        
 
