@@ -725,7 +725,7 @@ class Train_Dataset(SegData):
         #lbl1 = io.imread(self.lbls1[index])
         # set new class value
         if self.quick_train:
-            image=self.imgs[index]
+            image=self.imgs[index].copy()
         else:
             image=io.imread(self.imgs[index])
         image,image1,lbl1,lbl2=join_transform(image,self.lbl.copy())
@@ -733,8 +733,10 @@ class Train_Dataset(SegData):
         image1 = image1.astype(np.float32).transpose(2, 0, 1).copy() / 255.0 * 3.2 - 1.6
         lbl1=np.squeeze(lbl1.astype(np.float32))
         lbl2 = np.squeeze(lbl2.astype(np.float32))
-        index=get_index(lbl1,lbl2,(self.patch_size,self.patch_size),self.patch_num)
-        index=torch.from_numpy(index).long()
+        rois=get_index(lbl1,lbl2,(self.patch_size,self.patch_size),self.patch_num)
+        #index=torch.from_numpy(index).long()
+        #rois = torch.from_numpy(rois).long()
+        rois=rois.astype(np.float32)
 
         #lbl1 = torch.from_numpy(lbl1.copy()).long()
         #lbl2 = torch.from_numpy(lbl2.copy()).long()
@@ -742,11 +744,16 @@ class Train_Dataset(SegData):
             #data_dict['name'] = os.path.basename(self.imgs[dt][index])
         data_dict['image'],data_dict['image1'] = image,image1
         #data_dict['label'], data_dict['label1'] = lbl1, lbl2
-        data_dict['index'] = index
+        #data_dict['index'] = index
+        data_dict['rois'] = rois
         return data_dict
 
 def get_index(label1,label2,patch_size=(16,16),patch_num=4):
-    index_result = np.zeros((patch_num, 4))
+    # result_label1=label1*0
+    # result_label2=label2*0
+    rois=np.zeros((patch_num, 10))
+
+    #index_result = np.zeros((patch_num, 4))
     index_i = 0
     range_x = patch_size[0] // 2
     range_x1 = label1.shape[0] - patch_size[0] // 2
@@ -777,13 +784,12 @@ def get_index(label1,label2,patch_size=(16,16),patch_num=4):
         a = random.sample(list_for_select, 1)
         target1_index = np.argwhere(label1 == a)
         if len(target1_index.shape) == 2:
-            if target1_index[0][0] - patch_size[0] // 2 < 0 or target1_index[0][0] + patch_size[0] // 2 > \
-                    label1.shape[0] or target1_index[0][1] - patch_size[1] // 2 < 0 or target1_index[0][1] + \
-                    patch_size[1] // 2 > label1.shape[1]:
+            if target1_index[0][0] - range_x < 0 or target1_index[0][0] + range_x > \
+                    label1.shape[0] or target1_index[0][1] - range_y < 0 or target1_index[0][1] + \
+                    range_y > label1.shape[1]:
                 for i1 in range(1, target1_index.shape[0]):
-                    if target1_index[i1][0] - patch_size[0] // 2 < 0 or target1_index[i1][0] + patch_size[
-                        0] // 2 > label1.shape[0] or target1_index[i1][1] - patch_size[1] // 2 < 0 or \
-                            target1_index[i1][1] + patch_size[1] // 2 > label1.shape[1]:
+                    if target1_index[i1][0] -range_x < 0 or target1_index[i1][0] + range_x > label1.shape[0] or target1_index[i1][1] - range_y < 0 or \
+                            target1_index[i1][1] + range_y > label1.shape[1]:
                         continue
                     else:
                         target1_index = target1_index[i1, :]
@@ -792,23 +798,35 @@ def get_index(label1,label2,patch_size=(16,16),patch_num=4):
                 target1_index = target1_index[0, :]
         target2_index = np.argwhere(label2 == a)
         if len(target2_index.shape) == 2:
-            if target2_index[0][0] - patch_size[0] // 2 < 0 or target2_index[0][0] + patch_size[0] // 2 > \
-                    label2.shape[0] or target2_index[0][1] - patch_size[1] // 2 < 0 or target2_index[0][1] + \
-                    patch_size[1] // 2 > label2.shape[1]:
+            if target2_index[0][0] - range_x < 0 or target2_index[0][0] + range_x > \
+                    label2.shape[0] or target2_index[0][1] -range_y < 0 or target2_index[0][1] + \
+                    range_y > label2.shape[1]:
                 for i1 in range(1, target2_index.shape[0]):
-                    if target2_index[i1, 0] - patch_size[0] // 2 < 0 or target2_index[i1][0] + patch_size[
-                        0] // 2 > label2.shape[0] or target2_index[i1][1] - patch_size[1] // 2 < 0 or \
-                            target2_index[i1][1] + patch_size[1] // 2 > label2.shape[1]:
+                    if target2_index[i1, 0] - range_x < 0 or target2_index[i1][0] + range_x > label2.shape[0] or target2_index[i1][1] - range_y < 0 or \
+                            target2_index[i1][1] + range_y > label2.shape[1]:
                         continue
                     else:
                         target2_index = target2_index[i1, :]
                         break
             else:
                 target2_index = target2_index[0, :]
-        index_result[index_i, :] = [target1_index[0], target1_index[1], target2_index[0], target2_index[1]]
-        index_i = index_i + 1
-        t_list = label1[target1_index[0] - patch_size[0] // 2:target1_index[0] + patch_size[0] // 2,
-                 target1_index[1] - patch_size[1] // 2:target1_index[1] + patch_size[1] // 2].reshape(-1).tolist()
+        # result_label1[target1_index[0]-patch_size[0] // 2:target1_index[0]+patch_size[0]//2,target1_index[1]-patch_size[1] // 2:target1_index[1]-patch_size[1] // 2]= index_i + 1
+        # result_label2[target2_index[0] - patch_size[0] // 2:target2_index[0] + patch_size[0] // 2,
+        # target2_index[1] - patch_size[1] // 2:target2_index[1] - patch_size[1] // 2] = index_i + 1
+
+        #index_result[index_i, :] = [target1_index[0], target1_index[1], target2_index[0], target2_index[1]]
+        # rois[index_i,:]=[index_i,target1_index[0]-range_x,target1_index[1]-range_y,target1_index[0]+range_x,target1_index[1]+range_y,index_i,\
+        #                  target2_index[0]-range_x,target2_index[1]-range_y,target2_index[0]+range_x,target2_index[1]+range_y]
+        rois[index_i, :] = [index_i,  target1_index[1] - range_y,target1_index[0] - range_x ,
+                             target1_index[1] + range_y-1, target1_index[0] + range_x-1,index_i, \
+                             target2_index[1] - range_y, target2_index[0] - range_x,
+                            target2_index[1] + range_y-1,target2_index[0] + range_x-1]
+        index_i += 1
+        t_list = label1[target1_index[0] - range_x:target1_index[0] + range_x,
+                 target1_index[1] - range_y:target1_index[1] + range_y].reshape(-1).tolist()
+
+        #print(label1[int(index_result[index_i-1, 0]),int(index_result[index_i-1, 1])])
+        #print(label2[int(index_result[index_i -1, 2]), int(index_result[index_i - 1, 3])])
         '''
         one_segment1[target1_index[0] - patch_size[0] // 2:target1_index[0] + patch_size[0] // 2,
         target1_index[1] - patch_size[1] // 2:target1_index[1] + patch_size[1] // 2] = t
@@ -831,18 +849,6 @@ def get_index(label1,label2,patch_size=(16,16),patch_num=4):
         # flag = False
 
 
-    return index_result
 
+    return rois#index_result,
 
-'''
-l=np.array(range(256*256)).reshape(256,256)
-l= np.expand_dims(l, axis=2)
-patch_size=(16,16)
-print(datetime.datetime.now())
-range_x=patch_size[0] // 2
-range_x1=a.shape[0]-patch_size[0] // 2
-range_y=patch_size[1] // 2
-range_y1=a.shape[1]-patch_size[1] // 2
-print(datetime.datetime.now())
-#label1=l.copy()
-'''
