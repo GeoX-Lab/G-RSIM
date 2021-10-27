@@ -3,16 +3,21 @@
 # @Author  : HLin
 # @Email   : linhua2017@ia.ac.cn
 # @File    : decoder.py
-# @Software: PyCharm
+# @Software: PyCharm#
 
 # import os
 import torch
+#import torchvision.ops.ps_roi_pool
+from torchvision.ops import RoIPool#RoIAlign,
 import torch.nn as nn
 import torch.nn.functional as F
 from models.deeplab_utils import  ResNet
+from torch.autograd import Variable
 from models.deeplab_utils.sync_batchnorm.batchnorm import SynchronizedBatchNorm2d
 from models.deeplab_utils.encoder import Encoder
-
+#from models.roi_pooling.modules import RoIPoolFunction
+#from model.roi_layers import ROIPool
+#import torchvision.ops.ps_roi_pool
 import numpy as np
 import random
 #torch.nn.AvgPool2d(4)
@@ -23,85 +28,8 @@ import datetime
 
 
 
-def get_patch_q_k(output1, output2, index, patch_size=(16, 16), patch_num=1, outq=None, outk=None):
-
-    q = torch.zeros((output1.shape[0] * patch_num, output2.shape[1]), dtype=output1.dtype, device=output1.device)
-    k = torch.zeros((output1.shape[0] * patch_num, output2.shape[1]), dtype=output1.dtype, device=output1.device)
-    t = 0
-    for i in range(index.shape[0]):
-        for j in range(index.shape[1]):
-            if index[i][j][0] != 0:
-                temp1 = output1[i, :, index[i][j][0] - patch_size[0] // 2:index[i][j][0] + patch_size[0] // 2,
-                        index[i][j][1] - patch_size[1] // 2:index[i][j][1] + patch_size[1] // 2].clone()
-                temp2 = output2[i, :, index[i][j][2] - patch_size[0] // 2:index[i][j][2] + patch_size[0] // 2,
-                        index[i][j][3] - patch_size[1] // 2:index[i][j][3] + patch_size[1] // 2].clone()
-                temp1 = temp1.view(temp1.shape[0], -1)
-                temp2 = temp2.view(temp2.shape[0], -1)
-                temp11 = torch.mean(temp1, dim=1)
-                # temp12=torch.var(temp1,dim=1)
-                # temp1=torch.cat([temp11,temp12],dim=0)
-                temp21 = torch.mean(temp2, dim=1)
-                # temp22=torch.var(temp2,dim=1)
-                # temp2=torch.cat([temp21,temp22],dim=0)
-                # if torch.sum(torch.isnan(temp11)) > 0 or torch.sum(torch.isnan(temp21)) > 0:
-                # print(torch.sum(torch.isnan(temp11)))
-                # print(torch.sum(torch.isnan(temp21)))
-                q[t, :] = temp11
-                k[t, :] = temp21
-                t = t + 1
-    #print(q)
-    if outq is None:
-
-        return q[0:t, :], k[0:t, :]
-    else:
-
-        outq.put(q[0:t, :])
-        outk.put(k[0:t, :])
-
-def get_patch_q_k1(data_queue,patch_size=(16, 16), patch_num=1, outq=None, outk=None):
-    while not data_queue.empty():
-        data=data_queue.get()#pop()
-        data_queue.task_done()
-        output1=data[0].clone()
-        output2=data[1].clone()
-        index=data[2].clone()
-        q = torch.zeros((patch_num, output1.shape[0]), dtype=output1.dtype, device=output1.device)
-        k = q.clone()#torch.zeros((patch_num, output2.shape[0]), dtype=output1.dtype, device=output1.device)
-        t = 0
-       # for i in range(index.shape[0]):
-        for j in range(index.shape[1]):
-            if index[j][0] != 0:
-                temp1 = output1[:, index[j][0] - patch_size[0] // 2:index[j][0] + patch_size[0] // 2,
-                        index[j][1] - patch_size[1] // 2:index[j][1] + patch_size[1] // 2].clone()
-                temp2 = output2[ :, index[j][2] - patch_size[0] // 2:index[j][2] + patch_size[0] // 2,
-                        index[j][3] - patch_size[1] // 2:index[j][3] + patch_size[1] // 2].clone()
-                temp1 = temp1.view(temp1.shape[0], -1)
-                temp2 = temp2.view(temp2.shape[0], -1)
-                temp11 = torch.mean(temp1, dim=1)
-                # temp12=torch.var(temp1,dim=1)
-                # temp1=torch.cat([temp11,temp12],dim=0)
-                temp21 = torch.mean(temp2, dim=1)
-                # temp22=torch.var(temp2,dim=1)
-                # temp2=torch.cat([temp21,temp22],dim=0)
-                # if torch.sum(torch.isnan(temp11)) > 0 or torch.sum(torch.isnan(temp21)) > 0:
-                # print(torch.sum(torch.isnan(temp11)))
-                # print(torch.sum(torch.isnan(temp21)))
-                q[t, :] = temp11
-                k[t, :] = temp21
-                t = t + 1
-        #print(q)
-        if outq is None:
-
-            return q[0:t, :], k[0:t, :]
-        else:
-
-            outq.put(q[0:t, :])
-            outk.put(k[0:t, :])
 
 
-import threading
-import time
-from queue import Queue
 
 def get_mask(index,h,w,c,j,patch_size):
     with torch.no_grad():
@@ -123,44 +51,7 @@ def get_mask(index,h,w,c,j,patch_size):
         return out1,out2,t[0:i1].long()
 
 
-def get_patch_q_k_multi_process1(output1, output2, index, patch_size=(16, 16), patch_num=1, process_num=4):
 
-    if process_num == None:
-        q1, k1 = get_patch_q_k(output1, output2, index, patch_size=patch_size, patch_num=patch_num)
-    else:
-        data_queue=Queue()
-        for i in range(output1.shape[0]):
-            data_queue.put([output1[i,:,:,:],output2[i,:,:,:],index[i,:,:]])
-        q = Queue()
-        k = Queue()
-        #n = int(output1.shape[0] / process_num)
-        # print(n)
-        threads = []
-        # tb = threading.Thread(target=get_patch_q_k, args=(
-        # output1.clone(), output2.clone(), target1.clone(), target2.clone(), patch_size, patch_num, q, k))
-
-        for i in range(process_num):
-            t = threading.Thread(target=get_patch_q_k1, args=(
-                data_queue, patch_size, patch_num, q,k))
-            t.start()
-            threads.append(t)
-        for thread in threads:
-            thread.join()
-        data_queue.join()
-        q1 = []
-        k1 = []
-
-        flag = True
-        while not q.empty():
-            if flag:
-                q1 = q.get()
-                k1 = k.get()
-                flag = False
-            else:
-                q1 = torch.cat([q1, q.get()], dim=0)
-                k1 = torch.cat([k1, k.get()], dim=0)
-
-    return q1, k1
 
 class Decoder(nn.Module):
     def __init__(self, class_num, bn_momentum=0.1):
@@ -243,12 +134,15 @@ class DeepLab(nn.Module):
         self.encoder = Encoder(bn_momentum, output_stride)
         self.decoder = Decoder(num_classes, bn_momentum)
         self.avgpool =  nn.AdaptiveAvgPool2d((1, 1))
+        self.avgpool1 = nn.AdaptiveAvgPool2d((1, 1))
         self.patch_num=patch_num
+        self.roi_pool=RoIPool((patch_size,patch_size),1.0)#RoIAlign((1,1),1.0,4)
         self.patch_size=patch_size
         self.pross_num=pross_num
         self.noStyle=noStyle
         self.noGlobal=noGlobal
         self.noLocal=noLocal
+
         # projection head
         '''
         self.proj = nn.Sequential(
@@ -265,7 +159,7 @@ class DeepLab(nn.Module):
         if not patch_out_channel:
             patch_out_channel=num_classes
         self.proj1 = nn.Sequential(nn.Linear(num_classes, num_classes), nn.ReLU(), nn.Linear(num_classes, patch_out_channel))
-    def forward(self, input,input1,index):
+    def forward(self, input,input1,rois):
         x,low_level_features = self.backbone(input)
         #print(low_level_features.size()),56
         x = self.encoder(x)
@@ -312,30 +206,37 @@ class DeepLab(nn.Module):
                 x=torch.cat([x1,x],dim=1)
             #print(x)
             k=self.proj(x)
-        #del x,x1, low_level_features
-        '''
-        q1,k1=None,None
-        for i in range(index.shape[1]):
-            t1,t2,t=get_mask(index,input.shape[2],input.shape[3],predict.shape[1],i,(self.patch_size,self.patch_size))
 
-            t1=predict*t1.float()
-            t2=predict1*t2.float()
-            t1=self.avgpool(t1)*(input.shape[2]*input.shape[2])/(self.patch_size*self.patch_size)
-            t2 = self.avgpool(t2) * (input.shape[2] * input.shape[2]) / (self.patch_size * self.patch_size)
-            t1=torch.index_select(t1, dim=0, index=t)
-            t2=torch.index_select(t2, dim=0, index=t)
-            if i==0:
-                q1=t1
-                k1=t2
-            else:
-                q1 = torch.cat([q1, t1], dim=0)
-                k1 = torch.cat([k1, t2], dim=0)
-        '''
 
         #predict = self.decoder(x, low_level_features)
         if not self.noLocal:
-            q1, k1 = get_patch_q_k_multi_process1(predict, predict1, index ,patch_size=(self.patch_size, self.patch_size), patch_num=self.patch_num,
-                                                 process_num=self.pross_num)
+            q_rois = rois[:, :, 0:5]
+            k_rois = rois[:, :, 5:10]
+            a = torch.arange(0, q_rois.shape[0], 1, device=q_rois.device)
+            #a = a * q_rois.shape[1]
+            a = a.unsqueeze(1)
+            a = a.expand(q_rois.shape[0], q_rois.shape[1])
+            q_rois[:, :, 0] =  a#q_rois[:, :, 0] +
+            k_rois[:, :, 0] =  a.clone()#k_rois[:, :, 0] +
+            q_rois = q_rois.view(-1, 5)
+            k_rois = k_rois.view(-1, 5)
+
+
+
+            q1 = self.roi_pool(predict, q_rois)
+            q1=self.avgpool1(q1)
+            q1 = torch.flatten(q1, 1)
+
+            k1 = self.roi_pool(predict1, k_rois)
+            k1=self.avgpool1(k1)
+            k1 = torch.flatten(k1, 1)
+            #poolout2 = poolout2.view(poolout2.size(0), -1)
+
+
+
+
+            # q1, k1 = get_patch_q_k_multi_process1(predict, predict1, index ,patch_size=(self.patch_size, self.patch_size), patch_num=self.patch_num,
+            #                                      process_num=self.pross_num)
 
             q1=self.proj1(q1)
             k1=self.proj1(k1)
