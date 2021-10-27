@@ -82,24 +82,27 @@ def GLCNet_train(train_loader, model, criterion, optimizer, epoch, args,summary_
     lr=optimizer.param_groups[0]['lr']
     #tic = time.time()
     for i, data in enumerate(train_loader):
+        #print(i)
 
         optimizer.zero_grad()
 
-        input1, input2,index=data['image'], data['image1'],data['index']
+        input1, input2=data['image'], data['image1']#,data['index']
+        rois=data['rois']
+        rois = rois.cuda(non_blocking=args.non_blocking)  # [NCHW]
         input1 = input1.cuda(non_blocking=args.non_blocking)  # [NCHW]
         input2 = input2.cuda(non_blocking=args.non_blocking)  # [NCHW]
-        index = index.cuda(non_blocking=args.non_blocking)  # [NCHW]
+        #index = index.cuda(non_blocking=args.non_blocking)  # [NCHW]
         if args.self_mode==12:
-            q1, k1 = model(input1, input2, index)
+            q1, k1 = model(input1, input2, rois)
             loss = criterion[1](q1, k1)
         elif args.self_mode==13:
-            q, k = model(input1, input2, index)
+            q, k = model(input1, input2, rois)
             loss = criterion[0](q, k)
         else:
 
-            q, k ,q1,k1= model(input1, input2,index)  #slow# ,output,output1
+            q, k ,q1,k1= model(input1, input2,rois)  #slow# ,output,output1
 
-            loss = 0.5*criterion[0](q, k)+0.5*criterion[1](q1,k1)
+            loss = args.lamuda*criterion[0](q, k)+(1-args.lamuda)*criterion[1](q1,k1)
 
         if args.amp_opt_level != "O0":
             with amp.scale_loss(loss, optimizer) as scaled_loss:
@@ -108,6 +111,8 @@ def GLCNet_train(train_loader, model, criterion, optimizer, epoch, args,summary_
             loss.backward()  #slow
         #loss.backward()
         optimizer.step()
+        #print('end%d'%(i))
+        #print(datetime.datetime.now())
 
 
         # Meters update and visualize
