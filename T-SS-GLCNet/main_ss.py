@@ -70,6 +70,7 @@ parser.add_argument('--self_batch_size', default=256, type=int, help="")
 parser.add_argument('--ft_batch_size', default=16, type=int, help="")
 parser.add_argument('--self_max_epoch', default=400, type=int, help="")
 parser.add_argument('--ft_max_epoch', default=150, type=int, help="")
+parser.add_argument('--lamuda', default=0.5, type=float)
 
 parser.add_argument('--class_num', default=None, type=int, metavar='N',
                     help='default: None(from class_dict.txt)')
@@ -310,6 +311,17 @@ def train_seg1(model, opt):
             raise ValueError('NO model checkpoint.')
 
         pred_dict = torch.load(ckpt)
+        flag=False
+        for k,v in pred_dict.items():
+            if 'encoder_q' in k:
+                flag=True
+                break
+        pred_dict1={}
+        if flag:
+            for k,v in pred_dict.items():
+                if 'encoder_q' in k:
+                    pred_dict1[k[10:]]=v
+            pred_dict=pred_dict1
         model_dict = model.state_dict()
         print('load_from_self_model:')
         for k, v in pred_dict.items():
