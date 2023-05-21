@@ -130,6 +130,20 @@ Recently, supervised deep learning has achieved a great success in remote sensin
 
 遥感影像精准解译是遥感应用落地的核心和关键技术。近年来,以深度学习为代表的监督学习方法凭借其强大的特征学习能力,在遥感影像智能解译领域较传统方法取得了突破性进展。这一方法的成功严重依赖于大规模、高质量的标注数据,而遥感影像解译对象独特的时空异质性特点使得构建一个完备的人工标注数据库成本极高,这一矛盾严重制约了以监督学习为基础的遥感影像解译方法在大区域、复杂场景下的应用。如何破解遥感影像精准解译"最后一千米"已成为业界亟待解决的问题。针对该问题,本文系统地总结和评述了监督学习方法在遥感影像智能解译领域的主要研究进展,并分析其存在的不足和背后原因。在此基础上,重点介绍了自监督学习作为一种新兴的机器学习范式在遥感影像智能解译中的应用潜力和主要研究问题,阐明了遥感影像解译思路从监督学习转化到自监督学习的意义和价值,以期为数据源极大丰富条件下开展遥感影像智能解译研究提供新的视角。 
 
+
+```bibteX
+@ARTICLE{9284640,
+  author={陶超 and 阴紫薇 and 朱庆 and 李海峰},
+  journal={测绘学报}, 
+  title={遥感影像智能解译:从监督学习到自监督学习}, 
+  year={2021},
+  volume={50},
+  number={8},
+  pages={1122-1134},
+  doi={}}
+```
+
+
 ### (2020) *Remote Sensing Image Scene Classification With Self-Supervised Paradigm Under Limited Labeled Samples*
 With the development of deep learning, supervised learning methods perform well in remote sensing image (RSI) scene classification. However, supervised learning requires a huge number of annotated data for training. When labeled samples are not sufficient, the most common solution is to fine-tune the pretraining models using a large natural image data set (e.g., ImageNet). However, this learning paradigm is not a panacea, especially when the target RSIs (e.g., multispectral and hyperspectral data) have different imaging mechanisms from RGB natural images. To solve this problem, we introduce a new self-supervised learning (SSL) mechanism to obtain the high-performance pretraining model for RSI scene classification from large unlabeled data. Experiments on three commonly used RSI scene classification data sets demonstrated that this new learning paradigm outperforms the traditional dominant ImageNet pretrained model. Moreover, we analyze the impacts of several factors in SSL on RSI scene classification, including the choice of self-supervised signals, the domain difference between the source and target data sets, and the amount of pretraining data. The insights distilled from this work can help to foster the development of SSL in the remote sensing community. Since SSL could learn from unlabeled massive RSIs, which are extremely easy to obtain, it will be a promising way to alleviate dependence on labeled samples and thus efficiently solve many problems, such as global mapping.
 
