@@ -3,6 +3,13 @@
 ## Overview
 This repository includes our works on General remote sensing image understanding.
 
+The ideas behind our works can be abstracted and demonstrated in the following big picture.
+
+<p align = 'center'>
+  <img width = "500" src= "./big_picture.svg">
+</p>
+
+
 **The full list of works is as follows:**
 1. Tao, Chao, Ji Qi, Mingning Guo, Qing Zhu, and Haifeng Li. 2023. **‘Self-Supervised Remote Sensing Feature Learning: Learning Paradigms, Challenges, and Future Works’**. IEEE Transactions on Geoscience and Remote Sensing 1–1. doi: 10.1109/TGRS.2023.3276853.
    - [[Paper](https://ieeexplore.ieee.org/document/10126079)]
