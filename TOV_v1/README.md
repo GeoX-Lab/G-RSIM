@@ -1,12 +1,17 @@
 # Project of TOV 1.0
 This is project of the TOV paper:
 ```
-@Article{tao2020tov,
-  author  = {Chao Tao, Ji Qi, Guo Zhang, Qing Zhu, Weipeng Lu and Haifeng Li},
-  title   = {TOV: The Original Vision Model for Optical Remote Sensing Image Understanding via Self-supervised Learning},
-  journal = {arxiv.org},
-  doi = {arXiv:2204.04716},
-  year    = {2022},
+[1] C. Tao, J. Qi, G. Zhang, Q. Zhu, W. Lu and H. Li, "TOV: The Original Vision Model for Optical Remote Sensing Image Understanding via Self-Supervised Learning," in IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, vol. 16, pp. 4916-4930, 2023, doi: 10.1109/JSTARS.2023.3271312.
+
+@ARTICLE{10110958,
+  author={Tao, Chao and Qi, Ji and Zhang, Guo and Zhu, Qing and Lu, Weipeng and Li, Haifeng},
+  journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing}, 
+  title={TOV: The Original Vision Model for Optical Remote Sensing Image Understanding via Self-Supervised Learning}, 
+  year={2023},
+  volume={16},
+  number={},
+  pages={4916-4930},
+  doi={10.1109/JSTARS.2023.3271312}
 }
 ```
 ## Abstract
@@ -21,7 +26,7 @@ Do we on the right way for remote sensing image understanding (RSIU) by training
 To foster the development of an original vision model for RSIU, in this project, we will realse our pre-trained TOV model and related materials:
 - [x] Pretrained TOV model ([GoogleDrive](https://drive.google.com/drive/folders/14c0TnHFi1N_DC_egcoNWHCKX9C2pmmUR?usp=sharing) | [BaiduDrive](https://pan.baidu.com/s/1NHnuTbj7fVvCuUJXU9N5vQ?pwd=TOV1))
 - [x] The benchmark datasets and codes for evalutation.
-- [ ] TOV-RS-balanced: an remote sensing image dataset constructed by the proposed data sampling. ([BaiduDrive (Soon to be released...)]())
+- [ ] TOV-RS: the large scale remote sensing image dataset constructed by the proposed method. ([BaiduDrive](https://pan.baidu.com/s/1VGvoi8UlgbBrFkWmWsORvQ?pwd=xy29))
 - [ ] ...
 
 ## Using TOV model for various downstream RSIU tasks
