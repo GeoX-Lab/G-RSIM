@@ -10,23 +10,43 @@ The ideas behind our works can be abstracted and demonstrated in the following b
 </p>
 
 
-**The full list of works is as follows:**
-1. Tao, Chao, Ji Qi, Mingning Guo, Qing Zhu, and Haifeng Li. 2023. **‘Self-Supervised Remote Sensing Feature Learning: Learning Paradigms, Challenges, and Future Works’**. IEEE Transactions on Geoscience and Remote Sensing 1–1. doi: 10.1109/TGRS.2023.3276853.
+In the proposed framework, remote sensing visual foundation model includes three parts: data, learning signal, model evaluation, which can be mathematically described as:
+
+$$
+f_{\theta^*}=\min_{\theta} \mathcal{L}\left(f_\theta(\cdot), D, \text { Signal }\right)
+$$
+
+In the part of data $D$, we first explore an automated sample collection method based on geographic data guidance, aiming to provide a large-scale, diverse, balanced, and easily scalable remote sensing image dataset for foundation model training[2]. Second, we further sample the training samples by exploring model features or gradient information to yield more representative and homogeneous samples[3].
+
+In the part of learning $\mathbf{Signal}$, we focus on how to exploit the intrinsic learning signals of remote sensing data for model learning, rather than the traditional external signals, as the former is more capable of leveraging the value of large volumes of unannotated remote sensing images. At the theoretical level, we have sorted out and summarized the work on self-supervised representation learning for remote sensing images and written some review papers [1,7,8]. At the technical level, we have designed the corresponding self-supervised learning signals by combining the characteristics of remote sensing data itself [4-6].
+
+In the part of model evaluation, we constructed the General Remote Sensing Image Understanding Benchmark (GRSIUB) to comprehensively and systematically evaluate the progress of foundation models on a wide range of remote sensing image visual tasks. The GRSIUB consists of 19 remote sensing image understanding tasks of varying difficulty, with varying data and limited labelling samples.
+
+(**The full list of works is as follows:**)
+
+[1] Tao, Chao, Ji Qi, Mingning Guo, Qing Zhu, and Haifeng Li. 2023. **‘Self-Supervised Remote Sensing Feature Learning: Learning Paradigms, Challenges, and Future Works’**. IEEE Transactions on Geoscience and Remote Sensing 1–1. doi: 10.1109/TGRS.2023.3276853.
    - [[Paper](https://ieeexplore.ieee.org/document/10126079)]
-2. Tao, Chao, Ji Qi, Guo Zhang, Qing Zhu, Weipeng Lu, and Haifeng Li. 2023. **‘TOV: The Original Vision Model for Optical Remote Sensing Image Understanding via Self-Supervised Learning’**. IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing 1–16. doi: 10.1109/JSTARS.2023.3271312.
+
+[2] Tao, Chao, Ji Qi, Guo Zhang, Qing Zhu, Weipeng Lu, and Haifeng Li. 2023. **‘TOV: The Original Vision Model for Optical Remote Sensing Image Understanding via Self-Supervised Learning’**. IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing 1–16. doi: 10.1109/JSTARS.2023.3271312.
    - A **foundation model** for remote sensing image understanding
    - [[Paper](https://ieeexplore.ieee.org/document/10110958/) | [Code](https://github.com/GeoX-Lab/G-RSIM/tree/main/TOV_v1)]
-3. Zhang, Zhaoyang, Xuying Wang, Xiaoming Mei, Chao Tao, and Haifeng Li. 2022. **‘FALSE: False Negative Samples Aware Contrastive Learning for Semantic Segmentation of High-Resolution Remote Sensing Image’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3222836.
+
+[3] Zhang, Zhaoyang, Xuying Wang, Xiaoming Mei, Chao Tao, and Haifeng Li. 2022. **‘FALSE: False Negative Samples Aware Contrastive Learning for Semantic Segmentation of High-Resolution Remote Sensing Image’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3222836.
    - [[Paper](https://ieeexplore.ieee.org/document/9954056/) | [Code](https://github.com/GeoX-Lab/FALSE)]
-4. Wang, Xuying, Jiawei Zhu, Zhengliang Yan, Zhaoyang Zhang, Yunsheng Zhang, Yansheng Chen, and Haifeng Li. 2022. **‘LaST: Label-Free Self-Distillation Contrastive Learning With Transformer Architecture for Remote Sensing Image Scene Classification’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3185088.
+
+[4] Wang, Xuying, Jiawei Zhu, Zhengliang Yan, Zhaoyang Zhang, Yunsheng Zhang, Yansheng Chen, and Haifeng Li. 2022. **‘LaST: Label-Free Self-Distillation Contrastive Learning With Transformer Architecture for Remote Sensing Image Scene Classification’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3185088.
    - [[Paper](https://ieeexplore.ieee.org/document/9802117/) | [Code]()]
-5. Huang, Haozhe, Zhongfeng Mou, Yunying Li, Qiujun Li, Jie Chen and Haifeng Li. 2022. **‘Spatial-Temporal Invariant Contrastive Learning for Remote Sensing Scene Classification’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3173419.
+
+[5] Huang, Haozhe, Zhongfeng Mou, Yunying Li, Qiujun Li, Jie Chen and Haifeng Li. 2022. **‘Spatial-Temporal Invariant Contrastive Learning for Remote Sensing Scene Classification’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3173419.
    - [[Paper](https://ieeexplore.ieee.org/document/9770815/) | [Code](https://github.com/GeoX-Lab/G-RSIM/tree/main/T-SC-STICL)]
-6. Li, Haifeng, Yi Li, Guo Zhang, Ruoyun Liu, Haozhe Huang, Qing Zhu, and Chao Tao. 2022. **‘Global and Local Contrastive Self-Supervised Learning for Semantic Segmentation of HR Remote Sensing Images’**. IEEE Transactions on Geoscience and Remote Sensing 60:1–14. doi: 10.1109/tgrs.2022.3147513.
+
+[6] Li, Haifeng, Yi Li, Guo Zhang, Ruoyun Liu, Haozhe Huang, Qing Zhu, and Chao Tao. 2022. **‘Global and Local Contrastive Self-Supervised Learning for Semantic Segmentation of HR Remote Sensing Images’**. IEEE Transactions on Geoscience and Remote Sensing 60:1–14. doi: 10.1109/tgrs.2022.3147513.
    - [[Paper](https://ieeexplore.ieee.org/document/9696319/) | [Code](https://github.com/GeoX-Lab/G-RSIM/tree/main/T-SS-GLCNet)]
-7. 陶超, 阴紫薇, 朱庆和李海峰. 2021.**《遥感影像智能解译:从监督学习到自监督学习》**. 测绘学报 50(08):1122–34. (特邀稿)
+
+[7] 陶超, 阴紫薇, 朱庆和李海峰. 2021.**《遥感影像智能解译:从监督学习到自监督学习》**. 测绘学报 50(08):1122–34. (特邀稿)
    - [[Paper](https://kns.cnki.net/kcms2/article/abstract?v=3uoqIhG8C44YLTlOAiTRKibYlV5Vjs7iy_Rpms2pqwbFRRUtoUImHSE7i7PWr6_rbXYCr-h0wKFAkAPv5rjqr2HwmJN6B84s&uniplatform=NZKPT)]
-8. Tao, Chao, Ji Qi, Weipeng Lu, Hao Wang, and Haifeng Li. 2020. **‘Remote Sensing Image Scene Classification With Self-Supervised Paradigm Under Limited Labeled Samples’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2020.3038420.
+
+[8] Tao, Chao, Ji Qi, Weipeng Lu, Hao Wang, and Haifeng Li. 2020. **‘Remote Sensing Image Scene Classification With Self-Supervised Paradigm Under Limited Labeled Samples’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2020.3038420.
    - [[Paper](https://ieeexplore.ieee.org/document/9284640/) | [Code](https://github.com/ErenTuring/RSISC_SSL_Paradigm)]
 
 
