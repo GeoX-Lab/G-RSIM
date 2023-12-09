@@ -59,7 +59,7 @@ In the part of model evaluation, we constructed the General Remote Sensing Image
    - [[Paper](https://ieeexplore.ieee.org/document/10328629) or [arXiv](https://arxiv.org/abs/2306.15868) | [Code](https://github.com/GeoX-Lab/GraSS)]
 
 [2] Zhang, Zhaoyang, Xuying Wang, Xiaoming Mei, Chao Tao, and Haifeng Li*. 2022. **‘FALSE: False Negative Samples Aware Contrastive Learning for Semantic Segmentation of High-Resolution Remote Sensing Image’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3222836.
-   - [[Paper](https://ieeexplore.ieee.org/document/9954056/) | [Code](https://github.com/GeoX-Lab/FALSE)] 
+   - [[Paper](https://ieeexplore.ieee.org/document/9954056/) or [arXiv](https://arxiv.org/abs/2211.07928) https://arxiv.org/abs/2211.07928 | [Code](https://github.com/GeoX-Lab/FALSE)] 
 
 [3] {Zhang, Zhaoyang, Jing, Wenxuan, Li, Haifeng, Tao, Chao, Zhang, Yunsheng*. 2022. **‘GFCNet: Contrastive Learning Network with Geography Feature Space Joint Negative Sample Correction for Land Cover Classification’**. Remote Sensing. 2023 19:1–5. doi: 10.1109/LGRS.2022.3222836.
    - [[Paper](10.3390/rs15205056) | [Code]()]
