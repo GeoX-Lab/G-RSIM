@@ -22,9 +22,9 @@ In the part of learning $\mathbf{Signal}$, we focus on how to exploit the intrin
 
 In the part of model evaluation, we constructed the General Remote Sensing Image Understanding Benchmark (GRSIUB) to comprehensively and systematically evaluate the progress of foundation models on a wide range of remote sensing image visual tasks. The GRSIUB consists of 19 remote sensing image understanding tasks of varying difficulty, with varying data and limited labelling samples.
 
-(**The full list of works is as follows:**)
+**The full list of works is as follows:**
 
-**(1) Review papers**
+### **(1) Review papers**
 
 [1] Tao, Chao, Ji Qi, Mingning Guo, Qing Zhu, and Haifeng Li*. 2023. **‘Self-Supervised Remote Sensing Feature Learning: Learning Paradigms, Challenges, and Future Works’**. IEEE Transactions on Geoscience and Remote Sensing 1–1. doi: 10.1109/TGRS.2023.3276853.
    - [[Paper](https://ieeexplore.ieee.org/document/10126079)]
@@ -32,7 +32,7 @@ In the part of model evaluation, we constructed the General Remote Sensing Image
 [2] 陶超, 阴紫薇, 朱庆和李海峰*. 2021.**《遥感影像智能解译:从监督学习到自监督学习》**. 测绘学报 50(08):1122–34. (特邀稿)
    - [[Paper](https://kns.cnki.net/kcms2/article/abstract?v=3uoqIhG8C44YLTlOAiTRKibYlV5Vjs7iy_Rpms2pqwbFRRUtoUImHSE7i7PWr6_rbXYCr-h0wKFAkAPv5rjqr2HwmJN6B84s&uniplatform=NZKPT)]
 
-**(2) Models for learning General-purpose Remote Sensing Image Representation or Pre-trainning big model**
+### **(2) Models for learning General-purpose Remote Sensing Image Representation or Pre-trainning big model**
 
 [1] Li, Haifeng, Yi Li, Guo Zhang, Ruoyun Liu, Haozhe Huang, Qing Zhu, and Chao Tao*. 2022. **‘Global and Local Contrastive Self-Supervised Learning for Semantic Segmentation of HR Remote Sensing Images’**. IEEE Transactions on Geoscience and Remote Sensing 60:1–14. doi: 10.1109/tgrs.2022.3147513.
    - [[Paper](https://ieeexplore.ieee.org/document/9696319/) | [Code](https://github.com/GeoX-Lab/G-RSIM/tree/main/T-SS-GLCNet)]
@@ -53,7 +53,7 @@ In the part of model evaluation, we constructed the General Remote Sensing Image
 [5] Li, Haifeng, Jing, Wenxian, Wei, Guo, Wu, Kai, Su, Mingming, Liu, Lu, Li, Penglong, Qi, Ji*. 2020. **‘RiSSNet: Contrastive Learning Network with a Relaxed Identity Sampling Strategy for Remote Sensing Image Semantic Segmentation’**. Remote Sensing. 2023, 15(13):3427. doi: 10.1109/10.1109/10.3390/rs15133427.
    - [[Paper]([https://ieeexplore.ieee.org/document/9284640/](https://www.mdpi.com/2072-4292/15/13/3427)) | [Code]()]
 
-**(3) Models for handling the False Negative Samples Issue in Contrastive Learning**
+### **(3) Models for handling the False Negative Samples Issue in Contrastive Learning**
 
 [1] Zhang, Zhaoyang, Xuying Wang, Xiaoming Mei, Chao Tao, and Haifeng Li*. 2022. **‘GraSS: Contrastive Learning with Gradient Guided Sampling Strategy for Remote Sensing Image Semantic Segmentation’**. IEEE Transactions on Geoscience and Remote Sensing. 2023. doi: 10.1109/LGRS.2022.3222836.
    - [[Paper](https://ieeexplore.ieee.org/document/10328629) or [arXiv](https://arxiv.org/abs/2306.15868) | [Code](https://github.com/GeoX-Lab/GraSS)]
@@ -61,22 +61,8 @@ In the part of model evaluation, we constructed the General Remote Sensing Image
 [2] Zhang, Zhaoyang, Xuying Wang, Xiaoming Mei, Chao Tao, and Haifeng Li*. 2022. **‘FALSE: False Negative Samples Aware Contrastive Learning for Semantic Segmentation of High-Resolution Remote Sensing Image’**. IEEE Geoscience and Remote Sensing Letters 19:1–5. doi: 10.1109/LGRS.2022.3222836.
    - [[Paper](https://ieeexplore.ieee.org/document/9954056/) or [arXiv](https://arxiv.org/abs/2211.07928) https://arxiv.org/abs/2211.07928 | [Code](https://github.com/GeoX-Lab/FALSE)] 
 
-[3] {Zhang, Zhaoyang, Jing, Wenxuan, Li, Haifeng, Tao, Chao, Zhang, Yunsheng*. 2022. **‘GFCNet: Contrastive Learning Network with Geography Feature Space Joint Negative Sample Correction for Land Cover Classification’**. Remote Sensing. 2023 19:1–5. doi: 10.1109/LGRS.2022.3222836.
+[3] Zhang, Zhaoyang, Jing, Wenxuan, Li, Haifeng, Tao, Chao, Zhang, Yunsheng*. 2022. **‘GFCNet: Contrastive Learning Network with Geography Feature Space Joint Negative Sample Correction for Land Cover Classification’**. Remote Sensing. 2023 19:1–5. doi: 10.1109/LGRS.2022.3222836.
    - [[Paper](10.3390/rs15205056) | [Code]()]
-
-
-
-@ARTICLE{9770815,
-  author={Li, Haifeng and Jing, Wenxian and Wei, Guo and Wu, Kai and Su, Mingming and Liu, Lu and Li, Penglong and Qi, Ji},
-  journal={Remote Sensing}, 
-  title={RiSSNet: Contrastive Learning Network with a Relaxed Identity Sampling Strategy for Remote Sensing Image Semantic Segmentation}, 
-  year={2023},
-  volume={15},
-  number={13},
-  pages={3427},
-  doi={10.1109/10.3390/rs15133427}}
-
-
 
 ## (1) Review papers
 
