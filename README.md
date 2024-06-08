@@ -27,7 +27,7 @@ In the part of model evaluation, we constructed the General Remote Sensing Image
 ### **(1) Review papers**
 
 [1] Tao, Chao, Ji Qi, Mingning Guo, Qing Zhu, and Haifeng Li*. 2023. **‘Self-Supervised Remote Sensing Feature Learning: Learning Paradigms, Challenges, and Future Works’**. IEEE Transactions on Geoscience and Remote Sensing 1–1. doi: 10.1109/TGRS.2023.3276853.
-   - [[Paper](https://ieeexplore.ieee.org/document/10126079)]
+   - [[Paper](https://ieeexplore.ieee.org/document/10126079)] or [arXiv](https://arxiv.org/abs/2211.08129).
 
 [2] 陶超, 阴紫薇, 朱庆和李海峰*. 2021.**《遥感影像智能解译:从监督学习到自监督学习》**. 测绘学报 50(08):1122–34. (特邀稿)
    - [[Paper](https://kns.cnki.net/kcms2/article/abstract?v=3uoqIhG8C44YLTlOAiTRKibYlV5Vjs7iy_Rpms2pqwbFRRUtoUImHSE7i7PWr6_rbXYCr-h0wKFAkAPv5rjqr2HwmJN6B84s&uniplatform=NZKPT)]
@@ -35,7 +35,7 @@ In the part of model evaluation, we constructed the General Remote Sensing Image
 ### **(2) Models for learning General-purpose Remote Sensing Image Representation or Pre-trainning big model**
 
 [1] Li, Haifeng, Yi Li, Guo Zhang, Ruoyun Liu, Haozhe Huang, Qing Zhu, and Chao Tao*. 2022. **‘Global and Local Contrastive Self-Supervised Learning for Semantic Segmentation of HR Remote Sensing Images’**. IEEE Transactions on Geoscience and Remote Sensing 60:1–14. doi: 10.1109/tgrs.2022.3147513.
-   - [[Paper](https://ieeexplore.ieee.org/document/9696319/) | [Code](https://github.com/GeoX-Lab/G-RSIM/tree/main/T-SS-GLCNet)]
+   - [[Paper](https://ieeexplore.ieee.org/document/9696319/) or [arXiv](https://arxiv.org/abs/2106.10605) | [Code](https://github.com/GeoX-Lab/G-RSIM/tree/main/T-SS-GLCNet)]
      
 [2] Tao, Chao, Ji Qi, Guo Zhang, Qing Zhu, Weipeng Lu, and Haifeng Li*. 2023. **‘TOV: The Original Vision Model for Optical Remote Sensing Image Understanding via Self-Supervised Learning’**. IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing 1–16. doi: 10.1109/JSTARS.2023.3271312.
    - A **foundation model** for remote sensing image understanding
